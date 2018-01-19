@@ -89,14 +89,29 @@ class User
      *
      * @ORM\Column(name="createddate", type="date")
      */
-    private $createddate;
+    private $createdDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updateddate", type="datetime")
      */
-    private $updateddate;
+    private $updatedDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="idSeller")
+     */
+    private $sellerTransaction;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="idBuyer")
+     */
+    private $buyerTransaction;
 
 
     /**
@@ -326,51 +341,51 @@ class User
     }
 
     /**
-     * Set createddate
+     * Set createdDate
      *
-     * @param \DateTime $createddate
+     * @param \DateTime $createdDate
      *
      * @return User
      */
-    public function setCreateddate($createddate)
+    public function setCreatedDate($createdDate)
     {
-        $this->createddate = $createddate;
+        $this->createdDate = $createdDate;
 
         return $this;
     }
 
     /**
-     * Get createddate
+     * Get createdDate
      *
      * @return \DateTime
      */
-    public function getCreateddate()
+    public function getCreatedDate()
     {
-        return $this->createddate;
+        return $this->createdDate;
     }
 
     /**
-     * Set updateddate
+     * Set updatedDate
      *
-     * @param \DateTime $updateddate
+     * @param \DateTime $updatedDate
      *
      * @return User
      */
-    public function setUpdateddate($updateddate)
+    public function setUpdatedDate($updatedDate)
     {
-        $this->updateddate = $updateddate;
+        $this->updatedDate = $updatedDate;
 
         return $this;
     }
 
     /**
-     * Get updateddate
+     * Get updatedDate
      *
      * @return \DateTime
      */
-    public function getUpdateddate()
+    public function getUpdatedDate()
     {
-        return $this->updateddate;
+        return $this->updatedDate;
     }
 }
 

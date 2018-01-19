@@ -38,14 +38,14 @@ class Transaction
     /**
      * @var int
      *
-     * @ORM\Column(name="id_seller", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="sellerTransaction")
      */
     private $idSeller;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="id_buyer", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="buyerTransaction")
      */
     private $idBuyer;
 
