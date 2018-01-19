@@ -94,7 +94,7 @@ class Offer
     /**
      * @var Transaction
      *
-     * @ORM\OneToOne(targetEntity="Transaction", mappedBy="offer")
+     * @ORM\OneToOne(targetEntity="Transaction")
      */
     private $transaction;
 
@@ -347,29 +347,5 @@ class Offer
     public function getUpdatedDate()
     {
         return $this->updatedDate;
-    }
-
-    /**
-     * Set transaction
-     *
-     * @param \AppBundle\Entity\Transaction $transaction
-     *
-     * @return Offer
-     */
-    public function setTransaction(\AppBundle\Entity\Transaction $transaction = null)
-    {
-        $this->transaction = $transaction;
-
-        return $this;
-    }
-
-    /**
-     * Get transaction
-     *
-     * @return \AppBundle\Entity\Transaction
-     */
-    public function getTransaction()
-    {
-        return $this->transaction;
     }
 }
