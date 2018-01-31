@@ -1,7 +1,21 @@
-p{
-    color: red;
+.bg-home{
+    background: url("../images/bg-home.jpg")no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 92vh;
 }
 
-a{
-    color: black;
+.presentation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 92vh;
+}
+
+.slogan{
+    color: #F27A62;
+}
+
+.presentation-text{
+    margin-top: 25px;
 }

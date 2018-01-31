@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="home")
      */
-    public function indexAction(Request $request)
+    public function homeAction(Request $request)
     {
         // replace this example code with whatever you need
         return $this->render('front/home_page.html.twig', [
