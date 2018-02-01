@@ -52,9 +52,9 @@ class Transaction
     /**
      * @var Offer
      *
-     * @ORM\OneToOne(targetEntity="Offer")
+     * @ORM\OneToOne(targetEntity="Offer", inversedBy="transaction")
      */
-    private $Offer;
+    private $offer;
 
     /**
      * @var float
@@ -254,5 +254,29 @@ class Transaction
     public function getBuyer()
     {
         return $this->buyer;
+    }
+
+    /**
+     * Set offer
+     *
+     * @param \AppBundle\Entity\Offer $offer
+     *
+     * @return Transaction
+     */
+    public function setOffer(\AppBundle\Entity\Offer $offer = null)
+    {
+        $this->Offer = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Get offer
+     *
+     * @return \AppBundle\Entity\Offer
+     */
+    public function getOffer()
+    {
+        return $this->offer;
     }
 }

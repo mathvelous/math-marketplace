@@ -24,6 +24,14 @@ class Offer
     /**
      * @var string
      *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     */
+    private $authorId;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -64,9 +72,9 @@ class Offer
     private $zipcode;
 
     /**
-     * @var int
+     * @var OfferSubCategory
      *
-     * @ORM\Column(name="id_sub_category", type="integer")
+     * @ORM\ManyToOne(targetEntity="OfferSubCategory", inversedBy="id")
      */
     private $idSubCategory;
 
@@ -97,6 +105,20 @@ class Offer
      * @ORM\OneToOne(targetEntity="Transaction", mappedBy="offer")
      */
     private $transaction;
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="object")
+     */
+    private $message;
+
+    /**
+     * @var UserOfferBookmark
+     *
+     * @ORM\OneToMany(targetEntity="UserOfferBookmark", mappedBy="idOffer")
+     */
+    private $bookmark;
 
 
     /**
@@ -371,5 +393,105 @@ class Offer
     public function getTransaction()
     {
         return $this->transaction;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->message = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bookmark = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set authorId
+     *
+     * @param \AppBundle\Entity\User $authorId
+     *
+     * @return Offer
+     */
+    public function setAuthorId(\AppBundle\Entity\User $authorId = null)
+    {
+        $this->authorId = $authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get authorId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthorId()
+    {
+        return $this->authorId;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \AppBundle\Entity\Message $message
+     *
+     * @return Offer
+     */
+    public function addMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->message[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \AppBundle\Entity\Message $message
+     */
+    public function removeMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->message->removeElement($message);
+    }
+
+    /**
+     * Get message
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Add bookmark
+     *
+     * @param \AppBundle\Entity\UserOfferBookmark $bookmark
+     *
+     * @return Offer
+     */
+    public function addBookmark(\AppBundle\Entity\UserOfferBookmark $bookmark)
+    {
+        $this->bookmark[] = $bookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookmark
+     *
+     * @param \AppBundle\Entity\UserOfferBookmark $bookmark
+     */
+    public function removeBookmark(\AppBundle\Entity\UserOfferBookmark $bookmark)
+    {
+        $this->bookmark->removeElement($bookmark);
+    }
+
+    /**
+     * Get bookmark
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBookmark()
+    {
+        return $this->bookmark;
     }
 }

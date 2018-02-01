@@ -42,6 +42,13 @@ class OfferCategory
      */
     private $updatedDate;
 
+    /**
+     * @var OfferSubCategory
+     *
+     * @ORM\OneToMany(targetEntity="OfferSubCategory", mappedBy="idCategory")
+     */
+    private $idSubCategory;
+
 
     /**
      * Get id
@@ -123,5 +130,46 @@ class OfferCategory
     public function getUpdatedDate()
     {
         return $this->updatedDate;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idSubCategory = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idSubCategory
+     *
+     * @param \AppBundle\Entity\OfferSubCategory $idSubCategory
+     *
+     * @return OfferCategory
+     */
+    public function addIdSubCategory(\AppBundle\Entity\OfferSubCategory $idSubCategory)
+    {
+        $this->idSubCategory[] = $idSubCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove idSubCategory
+     *
+     * @param \AppBundle\Entity\OfferSubCategory $idSubCategory
+     */
+    public function removeIdSubCategory(\AppBundle\Entity\OfferSubCategory $idSubCategory)
+    {
+        $this->idSubCategory->removeElement($idSubCategory);
+    }
+
+    /**
+     * Get idSubCategory
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdSubCategory()
+    {
+        return $this->idSubCategory;
     }
 }

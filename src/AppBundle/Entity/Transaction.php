@@ -54,7 +54,7 @@ class Transaction
      *
      * @ORM\OneToOne(targetEntity="Offer", inversedBy="transaction")
      */
-    private $Offer;
+    private $offer;
 
     /**
      * @var float
@@ -277,6 +277,6 @@ class Transaction
      */
     public function getOffer()
     {
-        return $this->Offer;
+        return $this->offer;
     }
 }

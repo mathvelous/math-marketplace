@@ -22,16 +22,16 @@ class UserOfferBookmark
     private $id;
 
     /**
-     * @var int
+     * @var User
      *
-     * @ORM\Column(name="id_user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
      */
     private $idUser;
 
     /**
-     * @var int
+     * @var Offer
      *
-     * @ORM\Column(name="id_offer", type="integer")
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="id")
      */
     private $idOffer;
 

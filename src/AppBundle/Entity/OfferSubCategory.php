@@ -29,9 +29,9 @@ class OfferSubCategory
     private $name;
 
     /**
-     * @var int
+     * @var OfferCategory
      *
-     * @ORM\Column(name="id_category", type="integer")
+     * @ORM\ManyToOne(targetEntity="OfferCategory", inversedBy="id")
      */
     private $idCategory;
 
@@ -48,6 +48,13 @@ class OfferSubCategory
      * @ORM\Column(name="updated_date", type="datetime")
      */
     private $updatedDate;
+
+    /**
+     * @var Offer
+     *
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="idSubCategory")
+     */
+    private $idOffer;
 
 
     /**
@@ -154,5 +161,46 @@ class OfferSubCategory
     public function getUpdatedDate()
     {
         return $this->updatedDate;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idOffer = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idOffer
+     *
+     * @param \AppBundle\Entity\Offer $idOffer
+     *
+     * @return OfferSubCategory
+     */
+    public function addIdOffer(\AppBundle\Entity\Offer $idOffer)
+    {
+        $this->idOffer[] = $idOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove idOffer
+     *
+     * @param \AppBundle\Entity\Offer $idOffer
+     */
+    public function removeIdOffer(\AppBundle\Entity\Offer $idOffer)
+    {
+        $this->idOffer->removeElement($idOffer);
+    }
+
+    /**
+     * Get idOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdOffer()
+    {
+        return $this->idOffer;
     }
 }

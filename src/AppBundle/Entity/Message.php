@@ -22,16 +22,16 @@ class Message
     private $id;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="authorMessage")
      */
     private $author;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="dest", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="destMessage")
      */
     private $dest;
 
@@ -57,11 +57,11 @@ class Message
     private $content;
 
     /**
-     * @var string
+     * @var Offer
      *
-     * @ORM\Column(name="objet", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="title")
      */
-    private $objet;
+    private $object;
 
 
     /**
@@ -194,28 +194,28 @@ class Message
         return $this->content;
     }
 
+
     /**
-     * Set objet
+     * Set object
      *
-     * @param string $objet
+     * @param \AppBundle\Entity\Offer $object
      *
      * @return Message
      */
-    public function setObjet($objet)
+    public function setObject(\AppBundle\Entity\Offer $object = null)
     {
-        $this->objet = $objet;
+        $this->object = $object;
 
         return $this;
     }
 
     /**
-     * Get objet
+     * Get object
      *
-     * @return string
+     * @return \AppBundle\Entity\Offer
      */
-    public function getObjet()
+    public function getObject()
     {
-        return $this->objet;
+        return $this->object;
     }
 }
-

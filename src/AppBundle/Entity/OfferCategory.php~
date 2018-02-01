@@ -42,6 +42,13 @@ class OfferCategory
      */
     private $updatedDate;
 
+    /**
+     * @var OfferSubCategory
+     *
+     * @ORM\OneToMany(targetEntity="OfferSubCategory", mappedBy="idCategory")
+     */
+    private $idSubCategory;
+
 
     /**
      * Get id

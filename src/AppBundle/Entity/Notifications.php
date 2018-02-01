@@ -29,9 +29,9 @@ class Notifications
     private $content;
 
     /**
-     * @var int
+     * @var User
      *
-     * @ORM\Column(name="id_user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
      */
     private $idUser;
 

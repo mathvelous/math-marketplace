@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OfferSubCategory
+ * Message
  *
- * @ORM\Table(name="offer_sub_category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OfferSubCategoryRepository")
+ * @ORM\Table(name="message")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
  */
-class OfferSubCategory
+class Message
 {
     /**
      * @var int
@@ -22,39 +22,46 @@ class OfferSubCategory
     private $id;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="authorMessage")
      */
-    private $name;
+    private $author;
 
     /**
-     * @var OfferCategory
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="OfferCategory", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="destMessage")
      */
-    private $idCategory;
+    private $dest;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_date", type="datetime")
+     * @ORM\Column(name="createdDate", type="datetime")
      */
     private $createdDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_date", type="datetime")
+     * @ORM\Column(name="updatedDate", type="datetime")
      */
     private $updatedDate;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="string", length=255)
+     */
+    private $content;
+
+    /**
      * @var Offer
      *
-     * @ORM\OneToMany(targetEntity="Offer", mappedBy="idSubCategory")
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="title")
      */
-    private $idOffer;
+    private $object;
 
 
     /**
@@ -68,51 +75,51 @@ class OfferSubCategory
     }
 
     /**
-     * Set name
+     * Set author
      *
-     * @param string $name
+     * @param string $author
      *
-     * @return OfferSubCategory
+     * @return Message
      */
-    public function setName($name)
+    public function setAuthor($author)
     {
-        $this->name = $name;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get author
      *
      * @return string
      */
-    public function getName()
+    public function getAuthor()
     {
-        return $this->name;
+        return $this->author;
     }
 
     /**
-     * Set idCategory
+     * Set dest
      *
-     * @param integer $idCategory
+     * @param string $dest
      *
-     * @return OfferSubCategory
+     * @return Message
      */
-    public function setIdCategory($idCategory)
+    public function setDest($dest)
     {
-        $this->idCategory = $idCategory;
+        $this->dest = $dest;
 
         return $this;
     }
 
     /**
-     * Get idCategory
+     * Get dest
      *
-     * @return int
+     * @return string
      */
-    public function getIdCategory()
+    public function getDest()
     {
-        return $this->idCategory;
+        return $this->dest;
     }
 
     /**
@@ -120,7 +127,7 @@ class OfferSubCategory
      *
      * @param \DateTime $createdDate
      *
-     * @return OfferSubCategory
+     * @return Message
      */
     public function setCreatedDate($createdDate)
     {
@@ -144,7 +151,7 @@ class OfferSubCategory
      *
      * @param \DateTime $updatedDate
      *
-     * @return OfferSubCategory
+     * @return Message
      */
     public function setUpdatedDate($updatedDate)
     {
@@ -162,4 +169,30 @@ class OfferSubCategory
     {
         return $this->updatedDate;
     }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Message
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
 }
+

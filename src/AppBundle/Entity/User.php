@@ -100,7 +100,7 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @var \DateTime
+     * @var Transaction
      *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="seller")
      */
@@ -108,12 +108,47 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @var \DateTime
+     * @var Transaction
      *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="buyer")
      */
     private $buyerTransaction;
 
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="author")
+     */
+    private $authorMessage;
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="dest")
+     */
+    private $destMessage;
+
+    /**
+     * @var Notifications
+     *
+     * @ORM\OneToMany(targetEntity="Notifications", mappedBy="idUser")
+     */
+    private $notification;
+
+    /**
+     * @var Offer
+     *
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="authorId")
+     */
+    private $offer;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToMany(targetEntity="User", mappedBy="idUser")
+     */
+    private $bookmark;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -135,11 +170,6 @@ class User implements UserInterface, \Serializable
         return null;
     }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
     public function getRoles()
     {
         return array('ROLE_USER');
@@ -147,6 +177,18 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
     /** @see \Serializable::unserialize() */
@@ -435,14 +477,6 @@ class User implements UserInterface, \Serializable
     {
         return $this->updatedDate;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sellerTransaction = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->buyerTransaction = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add sellerTransaction
@@ -510,5 +544,199 @@ class User implements UserInterface, \Serializable
     public function getBuyerTransaction()
     {
         return $this->buyerTransaction;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Add authorMessage
+     *
+     * @param \AppBundle\Entity\Message $authorMessage
+     *
+     * @return User
+     */
+    public function addAuthorMessage(\AppBundle\Entity\Message $authorMessage)
+    {
+        $this->authorMessage[] = $authorMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove authorMessage
+     *
+     * @param \AppBundle\Entity\Message $authorMessage
+     */
+    public function removeAuthorMessage(\AppBundle\Entity\Message $authorMessage)
+    {
+        $this->authorMessage->removeElement($authorMessage);
+    }
+
+    /**
+     * Get authorMessage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthorMessage()
+    {
+        return $this->authorMessage;
+    }
+
+    /**
+     * Add destMessage
+     *
+     * @param \AppBundle\Entity\Message $destMessage
+     *
+     * @return User
+     */
+    public function addDestMessage(\AppBundle\Entity\Message $destMessage)
+    {
+        $this->destMessage[] = $destMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove destMessage
+     *
+     * @param \AppBundle\Entity\Message $destMessage
+     */
+    public function removeDestMessage(\AppBundle\Entity\Message $destMessage)
+    {
+        $this->destMessage->removeElement($destMessage);
+    }
+
+    /**
+     * Get destMessage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDestMessage()
+    {
+        return $this->destMessage;
+    }
+
+    /**
+     * Add notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     *
+     * @return User
+     */
+    public function addNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notification[] = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Remove notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     */
+    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notification->removeElement($notification);
+    }
+
+    /**
+     * Get notification
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * Add offer
+     *
+     * @param \AppBundle\Entity\Offer $offer
+     *
+     * @return User
+     */
+    public function addOffer(\AppBundle\Entity\Offer $offer)
+    {
+        $this->offer[] = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Remove offer
+     *
+     * @param \AppBundle\Entity\Offer $offer
+     */
+    public function removeOffer(\AppBundle\Entity\Offer $offer)
+    {
+        $this->offer->removeElement($offer);
+    }
+
+    /**
+     * Get offer
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOffer()
+    {
+        return $this->offer;
+    }
+
+    /**
+     * Add bookmark
+     *
+     * @param \AppBundle\Entity\User $bookmark
+     *
+     * @return User
+     */
+    public function addBookmark(\AppBundle\Entity\User $bookmark)
+    {
+        $this->bookmark[] = $bookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookmark
+     *
+     * @param \AppBundle\Entity\User $bookmark
+     */
+    public function removeBookmark(\AppBundle\Entity\User $bookmark)
+    {
+        $this->bookmark->removeElement($bookmark);
+    }
+
+    /**
+     * Get bookmark
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBookmark()
+    {
+        return $this->bookmark;
     }
 }

@@ -24,6 +24,14 @@ class Offer
     /**
      * @var string
      *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     */
+    private $authorId;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -64,9 +72,9 @@ class Offer
     private $zipcode;
 
     /**
-     * @var int
+     * @var OfferSubCategory
      *
-     * @ORM\Column(name="id_sub_category", type="integer")
+     * @ORM\ManyToOne(targetEntity="OfferSubCategory", inversedBy="id")
      */
     private $idSubCategory;
 
@@ -94,9 +102,23 @@ class Offer
     /**
      * @var Transaction
      *
-     * @ORM\OneToOne(targetEntity="Transaction")
+     * @ORM\OneToOne(targetEntity="Transaction", mappedBy="offer")
      */
     private $transaction;
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="object")
+     */
+    private $message;
+
+    /**
+     * @var UserOfferBookmark
+     *
+     * @ORM\OneToMany(targetEntity="UserOfferBookmark", mappedBy="idOffer")
+     */
+    private $bookmark;
 
 
     /**
@@ -347,5 +369,29 @@ class Offer
     public function getUpdatedDate()
     {
         return $this->updatedDate;
+    }
+
+    /**
+     * Set transaction
+     *
+     * @param \AppBundle\Entity\Transaction $transaction
+     *
+     * @return Offer
+     */
+    public function setTransaction(\AppBundle\Entity\Transaction $transaction = null)
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    /**
+     * Get transaction
+     *
+     * @return \AppBundle\Entity\Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
     }
 }

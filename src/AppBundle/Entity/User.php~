@@ -3,14 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Table(name="app_users")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -98,8 +98,9 @@ class User
      */
     private $updatedDate;
 
+
     /**
-     * @var \DateTime
+     * @var Transaction
      *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="seller")
      */
@@ -107,11 +108,100 @@ class User
 
 
     /**
-     * @var \DateTime
+     * @var Transaction
      *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="buyer")
      */
     private $buyerTransaction;
+
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="author")
+     */
+    private $authorMessage;
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="dest")
+     */
+    private $destMessage;
+
+    /**
+     * @var Notifications
+     *
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="idUser")
+     */
+    private $notification;
+
+    /**
+     * @var Offer
+     *
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="authorId")
+     */
+    private $offer;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToMany(targetEntity="User", mappedBy="idUser")
+     */
+    private $bookmark;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid(null, true));
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
 
 
     /**
@@ -386,14 +476,6 @@ class User
     public function getUpdatedDate()
     {
         return $this->updatedDate;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sellerTransaction = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->buyerTransaction = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
