@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheetsCustom %}
+    <link rel="stylesheet" href="{{ asset('asset/css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="bg-home">
+        <form action="{{ path('user_registration') }}" method="post" id="register">
+            {{ form_start(form) }}
+            {{ form_row(form.firstname) }}
+            {{ form_row(form.lastname) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword.first) }}
+            {{ form_row(form.plainPassword.second) }}
+
+            <button type="submit">Enregistrer</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
+{% endblock %}
+

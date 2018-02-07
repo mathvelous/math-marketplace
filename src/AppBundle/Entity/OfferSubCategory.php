@@ -31,7 +31,7 @@ class OfferSubCategory
     /**
      * @var OfferCategory
      *
-     * @ORM\ManyToOne(targetEntity="OfferCategory", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="OfferCategory", inversedBy="idSubCategory")
      */
     private $idCategory;
 

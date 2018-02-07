@@ -162,4 +162,45 @@ class OfferSubCategory
     {
         return $this->updatedDate;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idOffer = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idOffer
+     *
+     * @param \AppBundle\Entity\Offer $idOffer
+     *
+     * @return OfferSubCategory
+     */
+    public function addIdOffer(\AppBundle\Entity\Offer $idOffer)
+    {
+        $this->idOffer[] = $idOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove idOffer
+     *
+     * @param \AppBundle\Entity\Offer $idOffer
+     */
+    public function removeIdOffer(\AppBundle\Entity\Offer $idOffer)
+    {
+        $this->idOffer->removeElement($idOffer);
+    }
+
+    /**
+     * Get idOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdOffer()
+    {
+        return $this->idOffer;
+    }
 }

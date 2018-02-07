@@ -24,7 +24,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="offer")
      */
     private $authorId;
 
@@ -74,7 +74,7 @@ class Offer
     /**
      * @var OfferSubCategory
      *
-     * @ORM\ManyToOne(targetEntity="OfferSubCategory", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="OfferSubCategory", inversedBy="idOffer")
      */
     private $idSubCategory;
 
@@ -109,7 +109,7 @@ class Offer
     /**
      * @var Message
      *
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="object")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="subject")
      */
     private $message;
 
@@ -119,6 +119,13 @@ class Offer
      * @ORM\OneToMany(targetEntity="UserOfferBookmark", mappedBy="idOffer")
      */
     private $bookmark;
+
+    /**
+     * @var Message
+     *
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="relateOffer")
+     */
+    private $relateMessages;
 
 
     /**
@@ -493,5 +500,39 @@ class Offer
     public function getBookmark()
     {
         return $this->bookmark;
+    }
+
+    /**
+     * Add relateMessage
+     *
+     * @param \AppBundle\Entity\Message $relateMessage
+     *
+     * @return Offer
+     */
+    public function addRelateMessage(\AppBundle\Entity\Message $relateMessage)
+    {
+        $this->relateMessages[] = $relateMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove relateMessage
+     *
+     * @param \AppBundle\Entity\Message $relateMessage
+     */
+    public function removeRelateMessage(\AppBundle\Entity\Message $relateMessage)
+    {
+        $this->relateMessages->removeElement($relateMessage);
+    }
+
+    /**
+     * Get relateMessages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRelateMessages()
+    {
+        return $this->relateMessages;
     }
 }

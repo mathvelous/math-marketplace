@@ -31,7 +31,7 @@ class Notifications
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="notification")
      */
     private $idUser;
 

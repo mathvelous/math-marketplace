@@ -36,6 +36,13 @@ class Message
     private $dest;
 
     /**
+     * @var Offer
+     *
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="relateMessages")
+     */
+    private $relateOffer;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdDate", type="datetime")
@@ -57,11 +64,12 @@ class Message
     private $content;
 
     /**
-     * @var Offer
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="title")
+     *  @ORM\ManyToOne(targetEntity="Offer", inversedBy="message")
      */
-    private $object;
+    private $subject;
+
 
 
     /**
@@ -196,26 +204,50 @@ class Message
 
 
     /**
-     * Set object
+     * Set subject
      *
-     * @param \AppBundle\Entity\Offer $object
+     * @param string $subject
      *
      * @return Message
      */
-    public function setObject(\AppBundle\Entity\Offer $object = null)
+    public function setSubject($subject)
     {
-        $this->object = $object;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get object
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set relateOffer
+     *
+     * @param \AppBundle\Entity\Offer $relateOffer
+     *
+     * @return Message
+     */
+    public function setRelateOffer(\AppBundle\Entity\Offer $relateOffer = null)
+    {
+        $this->relateOffer = $relateOffer;
+
+        return $this;
+    }
+
+    /**
+     * Get relateOffer
      *
      * @return \AppBundle\Entity\Offer
      */
-    public function getObject()
+    public function getRelateOffer()
     {
-        return $this->object;
+        return $this->relateOffer;
     }
 }

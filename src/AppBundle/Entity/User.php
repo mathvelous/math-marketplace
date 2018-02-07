@@ -3,13 +3,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
+ * @ORM\HasLifecycleCallbacks()
  */
+
 class User implements UserInterface, \Serializable
 {
     /**
@@ -31,7 +36,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255, )
      */
     private $firstname;
 
@@ -45,16 +50,16 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="gender", type="string", length=255)
+     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
      */
-    private $gender;
+    private $gender = null;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true)
      */
-    private $mail;
+    private $email;
 
     /**
      * @var string
@@ -66,23 +71,23 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="adress", type="string", length=255)
+     * @ORM\Column(name="adress", type="string", length=255, nullable=true)
      */
-    private $adress;
+    private $adress = null;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
-    private $city;
+    private $city = null;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zipcode", type="string", length=255)
+     * @ORM\Column(name="zipcode", type="string", length=255, nullable=true)
      */
-    private $zipcode;
+    private $zipcode = null;
 
     /**
      * @var \DateTime
@@ -144,9 +149,9 @@ class User implements UserInterface, \Serializable
     private $offer;
 
     /**
-     * @var User
+     * @var UserOfferBookmark
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="idUser")
+     * @ORM\OneToMany(targetEntity="UserOfferBookmark", mappedBy="idUser")
      */
     private $bookmark;
 
@@ -155,10 +160,18 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
 
     public function __construct()
     {
         $this->isActive = true;
+        $this->createdDate = new \DateTime();
+        $this->updatedDate = new \DateTime();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
@@ -168,6 +181,16 @@ class User implements UserInterface, \Serializable
         // you *may* need a real salt depending on your encoder
         // see section on salt below
         return null;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     public function getRoles()
@@ -311,27 +334,27 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set mail
+     * Set email
      *
-     * @param string $mail
+     * @param string $email
      *
      * @return User
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get mail
+     * Get email
      *
      * @return string
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**

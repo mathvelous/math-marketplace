@@ -1,0 +1,35 @@
+{# templates/security/login.html.twig #}
+{# ... you will probably extend your base template, like base.html.twig #}
+{% extends 'views/home_page.html.twig' %}
+
+
+{% block stylesheetsCustom %}
+    <link rel="stylesheet" href="{{ asset('asset/css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="bg-home">
+        <form action="{{ path('login') }}" method="post" id="login">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="_password" />
+
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+
+            <button type="submit">login</button>
+        </form>
+        {% if error %}
+            <div class="create-account">
+                    <button type="text"><a href="{{ path('user_registration') }}">Enregistrer</a></button>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{# {{ error.messageKey|trans(error.messageData, 'security') }} #}

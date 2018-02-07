@@ -15,7 +15,7 @@ class DefaultController extends Controller
     public function homeAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('front/home_page.html.twig', [
+        return $this->render('views/home_page.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
@@ -26,18 +26,18 @@ class DefaultController extends Controller
     public function page2Action(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('front/page2.html.twig', [
+        return $this->render('views/page2.html.twig', [
             'username' => 'Henri',
         ]);
     }
 
-    /*/**
+    /**
      * @Route("/admin")
      */
-    /*public function adminAction()
+    public function adminAction()
     {
         return new Response('<html><body>Admin page!</body></html>');
-    }*/
+    }
 
 
 }

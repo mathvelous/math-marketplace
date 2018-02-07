@@ -36,6 +36,13 @@ class Message
     private $dest;
 
     /**
+     * @var Offer
+     *
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="relateMessage")
+     */
+    private $relateOffer;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdDate", type="datetime")
@@ -57,11 +64,11 @@ class Message
     private $content;
 
     /**
-     * @var Offer
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="title")
+     * @ORM\Column(name="subject", type="string", length=255)
      */
-    private $object;
+    private $subject;
 
 
     /**
@@ -195,4 +202,3 @@ class Message
     }
 
 }
-

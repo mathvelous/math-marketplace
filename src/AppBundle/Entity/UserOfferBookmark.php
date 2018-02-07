@@ -24,14 +24,14 @@ class UserOfferBookmark
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="bookmark")
      */
     private $idUser;
 
     /**
      * @var Offer
      *
-     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="bookmark")
      */
     private $idOffer;
 

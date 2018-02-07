@@ -41,11 +41,15 @@ header ul li a{
     color: #30333A;
 }
 
-.connect a{
+.button a{
     background-color: #F27A62;
     padding: 5px 10px;
-    border-radius: 20px;
     color: #ffffff;
+    transition: all ease 0.3s;
+}
+
+.button a:hover{
+    box-shadow: 3px 4px 0px #F4B6AB;
 }
 
 h1{
@@ -67,3 +71,60 @@ h2{
 .text-center{
     text-align: center;
 }
+
+.bg-home #login, .bg-home #register{
+    position: absolute;
+    top:30%;
+    transform: translateY(-50%);
+    left:50%;
+    transform: translateX(-50%);
+}
+
+#login, #register, .create-account{
+    display: flex;
+    flex-direction: column;
+    width: 50vh;
+    font-family: 'Dosis', sans-serif;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2em;
+}
+
+#login input, #register input{
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #30333A;
+    margin-top: 5px;
+    font-size: 1em;
+}
+
+#login label, #register label{
+    margin-top: 35px;
+    color:  #30333A;
+}
+
+#login button, #register button, .create-account{
+    position: relative;
+    background-color: #F27A62;
+    padding: 5px;
+    border: 0;
+    margin-top: 40px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.2em;
+    color: #ffffff;
+    transition: all ease 0.3s;
+}
+
+#login button:hover, #register button:hover{
+    box-shadow: 5px 5px 0px #F4B6AB;
+}
+
+
+
+
+
+
+
+
+
+
