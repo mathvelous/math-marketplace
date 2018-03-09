@@ -29,9 +29,15 @@
                         <li>
                             <a href="">Rubrique 3</a>
                         </li>
-                        <li class="button">
-                            <a href="{{ path('login') }}">Connexion</a>
-                        </li>
+                        {% if app.user != null %}
+                            <li class="button">
+                                <a href="{{ path('logout') }}">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="button">
+                                <a href="{{ path('login') }}">Connexion</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </header>
