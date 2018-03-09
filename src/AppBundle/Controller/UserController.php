@@ -41,6 +41,7 @@ class UserController extends Controller
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
+
             return $this->redirectToRoute('profil');
         }
 
@@ -49,5 +50,48 @@ class UserController extends Controller
             array('form' => $form->createView())
         );
     }
+
+    /**
+     * @Route("/profil", name="profil")
+     * @Security("has_role('ROLE_USER')")
+     *
+     */
+    public function profilAction(Request $request, UserInterface $user = null)
+    {
+        return $this->render('views/profil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/add-offer", name="addOffer")
+     * @Security("has_role('ROLE_USER')")
+     *
+     */
+    public function addOfferAction(Request $request, UserInterface $user = null)
+    {
+
+        $offer = new Offer();
+        $form = $this->createForm(OfferType::class, $offer);
+
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $offer -> setAthor($user);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+
+            return $this->redirectToRoute('profil');
+        }
+
+        return $this->render('views/addOffer.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
 }

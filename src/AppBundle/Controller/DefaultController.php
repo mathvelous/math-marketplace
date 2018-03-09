@@ -30,15 +30,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/profil", name="profil")
-     */
-    public function profilAction(Request $request)
-    {
-        return $this->render('views/profil.html.twig', [
-
-        ]);
-    }
 
     /**
      * @Route("/admin")

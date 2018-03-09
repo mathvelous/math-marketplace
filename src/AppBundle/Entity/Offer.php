@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,9 +47,9 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $image;
+    private $image = null;
 
     /**
      * @var float
@@ -60,9 +61,9 @@ class Offer
     /**
      * @var bool
      *
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      */
-    private $status;
+    private $status = true;
 
     /**
      * @var string
@@ -81,9 +82,9 @@ class Offer
     /**
      * @var int
      *
-     * @ORM\Column(name="number_views", type="integer")
+     * @ORM\Column(name="number_views", type="integer", nullable=true)
      */
-    private $numberViews;
+    private $numberViews = 0;
 
     /**
      * @var \DateTime
@@ -126,6 +127,27 @@ class Offer
      * @ORM\OneToMany(targetEntity="Message", mappedBy="relateOffer")
      */
     private $relateMessages;
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->relateMessages = new ArrayCollection();
+        $this->bookmark = new ArrayCollection();
+        $this->createdDate = new \DateTime();
+        $this->updatedDate = new \DateTime();
+    }
+
+    public function setCreatedDateValue(){
+        $this->createdDate = new \DateTime();
+    }
+
+    public function setUpdatedDateValue(){
+        $this->updatedDate = new \DateTime();
+    }
 
 
     /**
@@ -401,14 +423,7 @@ class Offer
     {
         return $this->transaction;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->message = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->bookmark = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Set authorId
