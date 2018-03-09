@@ -25,9 +25,18 @@ class DefaultController extends Controller
      */
     public function page2Action(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('views/page2.html.twig', [
             'username' => 'Henri',
+        ]);
+    }
+
+    /**
+     * @Route("/profil", name="profil")
+     */
+    public function profilAction(Request $request)
+    {
+        return $this->render('views/profil.html.twig', [
+
         ]);
     }
 
@@ -38,7 +47,6 @@ class DefaultController extends Controller
     {
         return new Response('<html><body>Admin page!</body></html>');
     }
-
 
 }
 
