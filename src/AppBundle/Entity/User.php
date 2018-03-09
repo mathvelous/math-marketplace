@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
- * @ORM\Table(name="app_users")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  * @UniqueEntity(fields="username", message="Username already taken")
  * @ORM\HasLifecycleCallbacks()
