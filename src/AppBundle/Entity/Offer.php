@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="offer")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfferRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Offer
 {
@@ -137,14 +138,18 @@ class Offer
     {
         $this->relateMessages = new ArrayCollection();
         $this->bookmark = new ArrayCollection();
-        $this->createdDate = new \DateTime();
-        $this->updatedDate = new \DateTime();
     }
 
+    /**
+     *  @ORM\PrePersist
+     */
     public function setCreatedDateValue(){
         $this->createdDate = new \DateTime();
     }
-
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
     public function setUpdatedDateValue(){
         $this->updatedDate = new \DateTime();
     }
