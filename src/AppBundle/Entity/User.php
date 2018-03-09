@@ -226,6 +226,14 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
+    public function setCreatedDateValue(){
+        $this->createdDate = new \DateTime();
+    }
+
+    public function setUpdatedDateValue(){
+        $this->updatedDate = new \DateTime();
+    }
+
 
     /**
      * Get id
