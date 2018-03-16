@@ -34,6 +34,17 @@ class OfferController extends Controller
 
             $offer -> setAuthorId($user);
 
+            $file = $offer->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+
+            $offer->setImage($fileName);
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($offer);
             $em->flush();
@@ -44,6 +55,19 @@ class OfferController extends Controller
 
         return $this->render('views/addOffer.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/edit/edit{offerId}", name="editOffer")
+     * @Security("has_role('ROLE_USER')")
+     *
+     */
+    public function profilAction(Request $request, UserInterface $user = null)
+    {
+        return $this->render('views/editOffer.html.twig', [
+        //'$offer = ...
         ]);
     }
 

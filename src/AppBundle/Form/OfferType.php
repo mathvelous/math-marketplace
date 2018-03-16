@@ -14,6 +14,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,6 +35,7 @@ class OfferType extends AbstractType
             ->add('description', TextType::class, array('label' => 'Description'))
             ->add('price', NumberType::class, array('label' => 'Prix'))
             ->add('zipcode', TextType::class, array('label' => 'Code postal'))
+            ->add('Image', FileType::class, array('label' => 'Image'))
             ->add('save', SubmitType::class);
     }
     public function configureOptions(OptionsResolver $resolver)

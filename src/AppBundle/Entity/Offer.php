@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Offer
@@ -46,11 +47,12 @@ class Offer
     private $description;
 
     /**
-     * @var string
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Offer image is required")
+     * @Assert\Image()
      */
-    private $image = null;
+    private $image;
 
     /**
      * @var float
