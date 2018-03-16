@@ -14,6 +14,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -31,7 +32,7 @@ class OfferType extends AbstractType
         $builder
             ->add('title', TextType::class, array('label' => 'Titre'))
             ->add('description', TextType::class, array('label' => 'Description'))
-            ->add('price', TextType::class, array('label' => 'Prix'))
+            ->add('price', NumberType::class, array('label' => 'Prix'))
             ->add('zipcode', TextType::class, array('label' => 'Code postal'))
             ->add('save', SubmitType::class);
     }
