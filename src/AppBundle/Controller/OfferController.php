@@ -54,7 +54,7 @@ class OfferController extends Controller
         }
 
         return $this->render('views/addOffer.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView() 
         ]);
     }
 
