@@ -2,14 +2,20 @@
 
 {% block body %}
     <main class="container">
-    {% for offer in offers %}
-         <div>
-             {{ offer.title }}
-             {{ offer.description }}
-             {{ offer.price }}
-             {{ offer.zipcode }}
-             <img src="uploads/images/{{ offer.image }}" alt="image">
-         </div>
-    {% endfor %}
+        {% for offer in offers %}
+            <div>
+                {{ offer.title }}
+                {{ offer.description }}
+                {{ offer.price }}
+                {{ offer.zipcode }}
+                <img src="uploads/images/{{ offer.image }}" alt="image">
+                {% if app.user and app.user.id == offer.authorId.id %}
+                    <a href="{{ path('editOffer', {offerId: offer.id}) }}">Edit</a>
+                    <a href="{{ path('deleteOffer', {offerId: offer.id}) }}">Supprimer</a>
+                {% else %}
+                    <a href="">Send message</a>
+                {% endif %}
+            </div>
+        {% endfor %}
     </main>
 {% endblock %}
