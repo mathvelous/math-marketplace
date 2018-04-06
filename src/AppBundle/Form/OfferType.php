@@ -37,18 +37,22 @@ class OfferType extends AbstractType
             ->add('description', TextType::class, array('label' => 'Description'))
             ->add('price', NumberType::class, array('label' => 'Prix'))
             ->add('zipcode', TextType::class, array('label' => 'Code postal'))
-            ->add('Image', FileType::class, array('label' => 'Image'))
-            ->add('newImage', FileType::class, array('mapped' => false))
             ->add('save', SubmitType::class);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
            $offer = $event->getData();
            $form = $event->getForm();
 
-           if ($offer->getId() !== null) {
-               $form->remove('Image');
+           if (!$offer || null === $offer->getId() ) {
+               $form->add('image', FileType::class, array('label' => 'image'));
+               $form->add('save', SubmitType::class, array(
+                   'validation_groups' => array('Default', "add"),
+               ));
            } else {
-               $form->remove('newImage');
+               $form->add('image', FileType::class, array('label' => 'New image', 'required' => false));
+               $form->add('save', SubmitType::class, array(
+                   'validation_groups' => array('Default'),
+               ));
            }
         });
     }

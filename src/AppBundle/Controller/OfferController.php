@@ -69,37 +69,35 @@ class OfferController extends Controller
     {
 
         $offer = $this->getDoctrine()->getRepository(Offer::class)->find($offerId);
-        if ($offer == null) {
+        if (!$offer) {
             throw $this->createNotFoundException('No offer found id' . $offerId);
         }
-        
 
-        $offer->setImage(
-            new File($this->getParameter('images_directory').'/'.$offer->getImage())
-        );
+        if($offer->getAuthorId()->getId() != $user->getId()){
+            throw $this->createAccessDeniedException('You cannot acces this page');
+        }
+
+        $currentOfferImg = $offer->getImage();
+        $offer->setImage(null);
 
         $form = $this->createForm(OfferType::class, $offer);
-
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $offer -> setAuthorId($user);
-
             $file = $offer->getImage();
-            if ($file != null) {
+            if ($file !== null) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
                 $file->move(
                     $this->getParameter('images_directory'),
                     $fileName
                 );
-
                 $offer->setImage($fileName);
-
-            } else {
-                $offer->setImage($oldImageFilename);
+            }else{
+                $offer->setImage($currentOfferImg);
             }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($offer);
             $em->flush();
@@ -109,7 +107,8 @@ class OfferController extends Controller
         }
 
         return $this->render('views/editOffer.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'currentOfferImg' => $currentOfferImg
         ]);
     }
 

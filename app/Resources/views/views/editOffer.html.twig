@@ -6,7 +6,17 @@
 
 {% block body %}
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.zipcode) }}
+        {{ form_row(form.price) }}
+            <div>
+                <label for="">Current image</label>
+                <img src="{{ asset('uploads/images/'~ currentOfferImg) }}" alt="image">
+            </div>
+        {{ form_row(form.image) }}
+    {{ form_end(form) }}
 
 {% endblock %}
 

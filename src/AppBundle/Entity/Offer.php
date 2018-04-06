@@ -49,8 +49,8 @@ class Offer
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Offer image is required")
-     * @Assert\Image()
+     * @Assert\NotBlank(message="Offer image is required", groups={"add"})
+     * @Assert\Image(groups={"add"})
      */
     private $image;
 
