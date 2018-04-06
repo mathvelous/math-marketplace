@@ -6,16 +6,17 @@
 {% endblock %}
 
 {% block body %}
-
-    {% for offer in user.offer %}
-        <div style="border: 1px solid #000;">
-            {{ offer.title }}
-            {{ offer.description }}
-            {{ offer.price }}
-            {{ offer.zipcode }}
-            <img src="uploads/images/{{ offer.image }}" alt="image">
-            <a href="{{ path('editOffer', {offerId: offer.id}) }}">Edit</a>
-        </div>
-    {% endfor %}
-
+    <main class="container">
+        {% for offer in user.offer %}
+            <div style="border: 1px solid #000;">
+                {{ offer.title }}
+                {{ offer.description }}
+                {{ offer.price }}
+                {{ offer.zipcode }}
+                <img src="uploads/images/{{ offer.image }}" alt="image">
+                <a href="{{ path('editOffer', {offerId: offer.id}) }}">Edit</a>
+                <a href="{{ path('deleteOffer', {offerId: offer.id}) }}">Supprimer</a>
+            </div>
+        {% endfor %}
+    </main>
 {% endblock %}

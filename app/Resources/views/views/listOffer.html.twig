@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="container">
+    {% for offer in offers %}
+         <div>
+             {{ offer.title }}
+             {{ offer.description }}
+             {{ offer.price }}
+             {{ offer.zipcode }}
+             <img src="uploads/images/{{ offer.image }}" alt="image">
+         </div>
+    {% endfor %}
+    </main>
+{% endblock %}

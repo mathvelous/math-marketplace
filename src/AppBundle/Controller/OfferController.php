@@ -19,6 +19,20 @@ class OfferController extends Controller
 {
 
     /**
+     * @Route("/list-offer", name="list-offer")
+     *
+     */
+    public function listOfferAction(Request $request)
+    {
+        $offerRepo = $this->getDoctrine()->getRepository(Offer::class);
+        $offers = $offerRepo->findAll();
+
+        return $this->render('views/listOffer.html.twig', [
+            'offers' => $offers
+        ]);
+    }
+
+    /**
      * @Route("/add-offer", name="add-offer")
      * @Security("has_role('ROLE_USER')")
      *
@@ -111,6 +125,35 @@ class OfferController extends Controller
             'currentOfferImg' => $currentOfferImg
         ]);
     }
+
+
+    /**
+     * @Route("/offer/delete/{offerId}", name="deleteOffer")
+     * @Security("has_role('ROLE_USER')")
+     *
+     */
+    public function deleteOfferAction(Request $request, UserInterface $user = null, $offerId)
+    {
+
+        $offer = $this->getDoctrine()->getRepository(Offer::class)->find($offerId);
+        if (!$offer) {
+            throw $this->createNotFoundException('No offer found id' . $offerId);
+        }
+
+        if($offer->getAuthorId()->getId() != $user->getId()){
+            throw $this->createAccessDeniedException('You cannot acces this page');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($offer);
+        $em->flush();
+
+        return $this->redirectToRoute('/profil');
+    }
+
+
+
+
 
 
 }

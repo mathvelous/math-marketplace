@@ -119,6 +119,10 @@ h2{
     box-shadow: 5px 5px 0px #F4B6AB;
 }
 
+.container{
+    width: 90vw;
+    margin: 5vh auto;
+}
 
 
 

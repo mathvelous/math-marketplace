@@ -38,7 +38,6 @@ class DefaultController extends Controller
     {
         return new Response('<html><body>Admin page!</body></html>');
     }
-
 }
 
 
