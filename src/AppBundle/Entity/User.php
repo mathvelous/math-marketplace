@@ -676,7 +676,7 @@ class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function addNotification(\AppBundle\Entity\Notification $notification)
+    public function addNotification(\AppBundle\Entity\Notifications $notification)
     {
         $this->notification[] = $notification;
 
@@ -688,7 +688,7 @@ class User implements UserInterface, \Serializable
      *
      * @param \AppBundle\Entity\Notification $notification
      */
-    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    public function removeNotification(\AppBundle\Entity\Notifications $notification)
     {
         $this->notification->removeElement($notification);
     }

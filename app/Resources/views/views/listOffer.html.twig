@@ -13,7 +13,7 @@
                     <a href="{{ path('editOffer', {offerId: offer.id}) }}">Edit</a>
                     <a href="{{ path('deleteOffer', {offerId: offer.id}) }}">Supprimer</a>
                 {% else %}
-                    <a href="">Send message</a>
+                    <a href="{{ path('send-message', {offerId: offer.id}) }}">Send message</a>
                 {% endif %}
             </div>
         {% endfor %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="container">
+        <p>Messages envoyé</p>
+        {% for message in messagesOfMe %}
+            <div>
+                {{ message.sujet }}
+                {{ message.content }}
+            </div>
+        {% endfor %}
+        <p>Messages reçu</p>
+        {% for message in messagesForMe %}
+            <div>
+                {{ message.sujet }}
+                {{ message.content }}
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

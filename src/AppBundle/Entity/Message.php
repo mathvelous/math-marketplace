@@ -64,7 +64,7 @@ class Message
     private $content;
 
     /**
-     * @var string
+     * @var Offer
      *
      *  @ORM\ManyToOne(targetEntity="Offer", inversedBy="message")
      */
